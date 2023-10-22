@@ -4,7 +4,7 @@ import { ModeToggle } from "../Themes/ModeToggle";
 
 const NavBar = () => {
   return (
-    <div className="w-full bg-gray-200 dark:bg-[#282828] h-auto p-5 flex justify-between items-center">
+    <div className="w-full bg-gray-200 dark:bg-[#575757] h-auto p-5 flex justify-between items-center">
       <Link href="/" className="font-bold">
         Python Ninja
       </Link>
