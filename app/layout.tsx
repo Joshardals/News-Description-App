@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Nav/NavBar";
+import { ThemeProvider } from "@/components/Themes/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +19,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <section className="max-w-[50rem] mx-auto p-5">
-          <div className="mt-10">
-            <NavBar />
-          </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <section className="max-w-[50rem] mx-auto p-5">
+            <div className="mt-10">
+              <NavBar />
+            </div>
 
-          <main>{children}</main>
-        </section>
+            <main>{children}</main>
+          </section>
+        </ThemeProvider>
       </body>
     </html>
   );
