@@ -17,7 +17,7 @@ const News = ({ id, title, description, createdAt }: Props) => {
       className="flex flex-col w-full justify-between border dark:border dark:border-[#3f3f3f] border-black p-5 h-auto
      space-y-2 sm:space-y-4"
     >
-      <div className="flex flex-col sm:flex-row space-x-3">
+      <div className="flex flex-col sm:flex-row space-x-3 justify-between">
         <div className="space-y-1 ">
           <div>
             <h2 className="font-bold text-2xl">{title}</h2>
