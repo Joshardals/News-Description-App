@@ -34,8 +34,7 @@ export async function fetchNews() {
   try {
     connectToDB();
 
-    const news = await News.find();
-    return news;
+    return await News.find();
   } catch (error: any) {
     console.log("Error fetching News: ", error.message);
   }
@@ -44,11 +43,9 @@ export async function fetchNews() {
 export async function deleteNews(id: string) {
   try {
     connectToDB();
-    const deletedNews = News.findByIdAndDelete(id);
+    await News.findByIdAndDelete(id);
 
     revalidatePath("/");
-
-    return deletedNews;
   } catch (error: any) {
     console.log("Error deleting News: ", error.message);
   }
@@ -58,14 +55,12 @@ export async function updateNews({ id, title, description }: Props) {
   try {
     connectToDB();
 
-    const updatedNews = await News.findByIdAndUpdate(id, {
+    await News.findByIdAndUpdate(id, {
       title,
       description,
     });
 
     revalidatePath("/");
-
-    return updatedNews;
   } catch (error: any) {
     console.log("Error updating News: ", error.message);
   }
