@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createNews } from "@/lib/action/news.action";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const AddNews = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const form = useForm<NewsValidationType>({
     resolver: zodResolver(NewsValidation),
     defaultValues: {
@@ -29,6 +30,7 @@ const AddNews = () => {
     await createNews({
       title: values.title,
       description: values.description,
+      path: pathname,
     });
 
     router.push("/");

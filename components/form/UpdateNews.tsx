@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { updateNews } from "@/lib/action/news.action";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface Props {
   id: string;
@@ -20,6 +20,7 @@ interface Props {
 
 const UpdateNews = ({ id }: Props) => {
   const router = useRouter();
+  const path = usePathname();
   const form = useForm<NewsValidationType>({
     resolver: zodResolver(NewsValidation),
     defaultValues: {
@@ -30,7 +31,7 @@ const UpdateNews = ({ id }: Props) => {
 
   const onSubmit = async (values: NewsValidationType) => {
     const { title, description } = values;
-    await updateNews({ id, title, description });
+    await updateNews({ id, title, description, path });
 
     router.push("/");
   };
