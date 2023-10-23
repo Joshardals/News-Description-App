@@ -26,7 +26,7 @@ export async function createNews({ title, description, path }: Params) {
       description,
     });
 
-    revalidatePath(path);
+    revalidatePath("/");
   } catch (error: any) {
     console.log("Error creating news..", error.message);
   }
@@ -62,7 +62,7 @@ export async function updateNews({ id, title, description, path }: Props) {
       description,
     });
 
-    revalidatePath(path);
+    revalidatePath("/");
   } catch (error: any) {
     console.log("Error updating News: ", error.message);
   }
