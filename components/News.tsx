@@ -1,8 +1,9 @@
 import { TrashIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { formatDateTime } from "../lib/hooks/index";
+import { timeAgo } from "../lib/hooks/index";
 import Delete from "./Delete";
+import { formatDateString } from "@/lib/utils";
 
 interface Props {
   id: string;
@@ -38,7 +39,7 @@ const News = ({ id, title, description, createdAt }: Props) => {
 
       <div className="text-xs flex items-center justify-between">
         <span>
-          <b className="italic">Created At:</b> {formatDateTime(createdAt)}
+          <b className="italic">Created At:</b> {formatDateString(createdAt)}
         </span>
         <div className="space-x-2 flex justify-end sm:justify-start sm:hidden">
           <Delete id={id} />

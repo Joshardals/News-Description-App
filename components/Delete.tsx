@@ -1,5 +1,4 @@
 "use client";
-
 import { deleteNews } from "@/lib/action/news.action";
 import { Button } from "./ui/button";
 import { TrashIcon } from "@heroicons/react/24/solid";
@@ -10,7 +9,11 @@ interface props {
 
 const Delete = ({ id }: props) => {
   const handleClick = () => {
-    deleteNews(id);
+    const confirmed = confirm("Are you sure you want to delete?");
+    if (confirmed) {
+      deleteNews(id);
+    }
+    return null;
   };
   return (
     <>

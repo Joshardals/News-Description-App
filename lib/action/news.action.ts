@@ -7,26 +7,26 @@ import { revalidatePath } from "next/cache";
 interface Params {
   title: string;
   description: string;
-  path: string;
 }
 
 interface Props {
   id: string;
   title: string;
   description: string;
-  path: string;
 }
 
-export async function createNews({ title, description, path }: Params) {
+export async function createNews({ title, description }: Params) {
   try {
     connectToDB();
 
-    await News.create({
+    const createdNews = await News.create({
       title,
       description,
     });
 
-    revalidatePath("/");
+    revalidatePath("/", "layout");
+
+    return createdNews;
   } catch (error: any) {
     console.log("Error creating news..", error.message);
   }
@@ -49,22 +49,24 @@ export async function deleteNews(id: string) {
     connectToDB();
     await News.findByIdAndDelete(id);
 
-    revalidatePath("/");
+    revalidatePath("/", "layout");
   } catch (error: any) {
     console.log("Error deleting News: ", error.message);
   }
 }
 
-export async function updateNews({ id, title, description, path }: Props) {
+export async function updateNews({ id, title, description }: Props) {
   try {
     connectToDB();
 
-    await News.findByIdAndUpdate(id, {
+    const updatedNews = await News.findByIdAndUpdate(id, {
       title,
       description,
     });
 
-    revalidatePath("/");
+    revalidatePath("/", "layout");
+
+    return updatedNews;
   } catch (error: any) {
     console.log("Error updating News: ", error.message);
   }
