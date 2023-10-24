@@ -1,7 +1,6 @@
 import { TrashIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { timeAgo } from "../lib/hooks/index";
 import Delete from "./Delete";
 import { formatDateString } from "@/lib/utils";
 
