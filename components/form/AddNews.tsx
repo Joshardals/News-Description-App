@@ -17,7 +17,7 @@ import { createNews } from "@/lib/action/news.action";
 import { useRouter } from "next/navigation";
 
 const AddNews = () => {
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setPending] = useState(false);
   const router = useRouter();
 
   const form = useForm<NewsValidationType>({
@@ -29,14 +29,13 @@ const AddNews = () => {
   });
 
   const onSubmit = async (values: NewsValidationType) => {
+    setPending(true);
     await createNews({
       title: values.title,
       description: values.description,
     });
-    // startTransition(() => {
-    //   router.push("/");
-    // });
     router.push("/");
+    setPending(true);
   };
 
   return (

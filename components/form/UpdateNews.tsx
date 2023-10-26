@@ -20,7 +20,7 @@ interface Props {
 }
 
 const UpdateNews = ({ id }: Props) => {
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setPending] = useState(false);
   const router = useRouter();
 
   const form = useForm<NewsValidationType>({
@@ -32,12 +32,12 @@ const UpdateNews = ({ id }: Props) => {
   });
 
   const onSubmit = async (values: NewsValidationType) => {
+    setPending(true);
     const { title, description } = values;
     await updateNews({ id, title, description });
 
-    startTransition(() => {
-      router.push("/");
-    });
+    router.push("/");
+    setPending(false);
   };
 
   return (
