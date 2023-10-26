@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NewsValidation, NewsValidationType } from "@/lib/validations/news";
@@ -14,10 +15,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { createNews } from "@/lib/action/news.action";
 import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 const AddNews = () => {
+  const [isPending, setPending] = useState(false);
+  const [isTransitionStarted, startTransition] = useTransition();
   const router = useRouter();
+
+  const isMutating = isPending || isTransitionStarted;
   const form = useForm<NewsValidationType>({
     resolver: zodResolver(NewsValidation),
     defaultValues: {
@@ -27,11 +31,14 @@ const AddNews = () => {
   });
 
   const onSubmit = async (values: NewsValidationType) => {
+    setPending(true);
     await createNews({
       title: values.title,
       description: values.description,
     });
     router.push("/");
+    startTransition(router.refresh);
+    setPending(false);
   };
 
   return (
@@ -61,7 +68,9 @@ const AddNews = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Add News</Button>
+        <Button type="submit">
+          {isMutating ? "Adding News..." : "Add News"}
+        </Button>
       </form>
     </Form>
   );

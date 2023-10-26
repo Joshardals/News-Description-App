@@ -13,13 +13,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { updateNews } from "@/lib/action/news.action";
 import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 
 interface Props {
   id: string;
 }
 
 const UpdateNews = ({ id }: Props) => {
+  const [isPending, setPending] = useState(false);
+  const [isTransitionStarted, startTransition] = useTransition();
   const router = useRouter();
+
+  const isMutating = isPending || isTransitionStarted;
   const form = useForm<NewsValidationType>({
     resolver: zodResolver(NewsValidation),
     defaultValues: {
@@ -29,10 +34,13 @@ const UpdateNews = ({ id }: Props) => {
   });
 
   const onSubmit = async (values: NewsValidationType) => {
+    setPending(true);
     const { title, description } = values;
     await updateNews({ id, title, description });
 
     router.push("/");
+    startTransition(router.refresh);
+    setPending(false);
   };
 
   return (
@@ -62,7 +70,9 @@ const UpdateNews = ({ id }: Props) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Update News</Button>
+        <Button type="submit">
+          {isMutating ? "Updating News..." : "Update News"}
+        </Button>
       </form>
     </Form>
   );
