@@ -24,7 +24,7 @@ export async function createNews({ title, description }: Params) {
       description,
     });
 
-    revalidatePath("/", "layout");
+    revalidatePath("/", "page");
 
     return createdNews;
   } catch (error: any) {
@@ -49,7 +49,7 @@ export async function deleteNews(id: string) {
     connectToDB();
     await News.findByIdAndDelete(id);
 
-    revalidatePath("/", "layout");
+    revalidatePath("/", "page");
   } catch (error: any) {
     console.log("Error deleting News: ", error.message);
   }
