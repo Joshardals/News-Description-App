@@ -38,7 +38,7 @@ const News = ({ id, title, description, createdAt }: Props) => {
 
       <div className="text-xs flex items-center justify-between">
         <span>
-          <b className="italic">Created At:</b> {formatDateString(createdAt)}
+          <b className="italic">Created:</b> {formatDateString(createdAt)}
         </span>
         <div className="space-x-2 flex justify-end sm:justify-start sm:hidden">
           <Delete id={id} />

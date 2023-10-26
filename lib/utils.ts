@@ -6,18 +6,22 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // created by chatgpt
-export function formatDateString(dateString: string) {
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  };
+export function formatDateString(timeString: string) {
+  const date: Date = new Date(timeString);
+  const currentTime: Date = new Date();
+  const timeDifference: number = currentTime.getTime() - date.getTime();
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
 
-  const date = new Date(dateString);
-  const formatter = new Intl.DateTimeFormat(undefined, options);
-  const formattedDate = formatter.format(date);
-
-  return formattedDate;
+  if (days > 0) {
+    return `${days} day${days > 1 ? "s" : ""} ago`;
+  } else if (hours > 0) {
+    return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+  } else if (minutes > 0) {
+    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+  } else {
+    return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
+  }
 }
