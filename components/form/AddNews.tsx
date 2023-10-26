@@ -33,9 +33,10 @@ const AddNews = () => {
       title: values.title,
       description: values.description,
     });
-    startTransition(() => {
-      router.push("/");
-    });
+    // startTransition(() => {
+    //   router.push("/");
+    // });
+    router.push("/");
   };
 
   return (
