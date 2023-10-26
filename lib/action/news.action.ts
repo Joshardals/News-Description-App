@@ -24,7 +24,7 @@ export async function createNews({ title, description }: Params) {
       description,
     });
 
-    revalidatePath("/", "page");
+    revalidatePath("/", "layout");
 
     return createdNews;
   } catch (error: any) {
