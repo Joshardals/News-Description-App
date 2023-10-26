@@ -17,11 +17,9 @@ import { createNews } from "@/lib/action/news.action";
 import { useRouter } from "next/navigation";
 
 const AddNews = () => {
-  const [isPending, setPending] = useState(false);
-  const [isTransitionStarted, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const isMutating = isPending || isTransitionStarted;
   const form = useForm<NewsValidationType>({
     resolver: zodResolver(NewsValidation),
     defaultValues: {
@@ -31,14 +29,13 @@ const AddNews = () => {
   });
 
   const onSubmit = async (values: NewsValidationType) => {
-    setPending(true);
     await createNews({
       title: values.title,
       description: values.description,
     });
-    router.push("/");
-    startTransition(router.refresh);
-    setPending(false);
+    startTransition(() => {
+      router.push("/");
+    });
   };
 
   return (
@@ -69,7 +66,7 @@ const AddNews = () => {
           )}
         />
         <Button type="submit">
-          {isMutating ? "Adding News..." : "Add News"}
+          {isPending ? "Adding News..." : "Add News"}
         </Button>
       </form>
     </Form>

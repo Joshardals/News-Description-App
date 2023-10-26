@@ -20,11 +20,9 @@ interface Props {
 }
 
 const UpdateNews = ({ id }: Props) => {
-  const [isPending, setPending] = useState(false);
-  const [isTransitionStarted, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const isMutating = isPending || isTransitionStarted;
   const form = useForm<NewsValidationType>({
     resolver: zodResolver(NewsValidation),
     defaultValues: {
@@ -34,13 +32,12 @@ const UpdateNews = ({ id }: Props) => {
   });
 
   const onSubmit = async (values: NewsValidationType) => {
-    setPending(true);
     const { title, description } = values;
     await updateNews({ id, title, description });
 
-    router.push("/");
-    startTransition(router.refresh);
-    setPending(false);
+    startTransition(() => {
+      router.push("/");
+    });
   };
 
   return (
@@ -71,7 +68,7 @@ const UpdateNews = ({ id }: Props) => {
           )}
         />
         <Button type="submit">
-          {isMutating ? "Updating News..." : "Update News"}
+          {isPending ? "Updating News..." : "Update News"}
         </Button>
       </form>
     </Form>
