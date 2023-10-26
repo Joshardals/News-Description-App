@@ -49,7 +49,7 @@ export async function deleteNews(id: string) {
     connectToDB();
     await News.findByIdAndDelete(id);
 
-    revalidatePath("/", "page");
+    revalidatePath("/", "layout");
   } catch (error: any) {
     console.log("Error deleting News: ", error.message);
   }
