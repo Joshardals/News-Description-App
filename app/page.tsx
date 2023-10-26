@@ -1,6 +1,8 @@
 import News from "@/components/News";
 import { fetchNews } from "@/lib/action/news.action";
 
+export const revalidate = "force-cache";
+
 export default async function Home() {
   const news = await fetchNews();
 
