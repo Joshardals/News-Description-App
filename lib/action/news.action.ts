@@ -19,14 +19,12 @@ export async function createNews({ title, description }: Params) {
   try {
     connectToDB();
 
-    const createdNews = await News.create({
+    await News.create({
       title,
       description,
     });
 
     revalidatePath("/", "layout");
-
-    return createdNews;
   } catch (error: any) {
     console.log("Error creating news..", error.message);
   }
@@ -59,14 +57,12 @@ export async function updateNews({ id, title, description }: Props) {
   try {
     connectToDB();
 
-    const updatedNews = await News.findByIdAndUpdate(id, {
+    await News.findByIdAndUpdate(id, {
       title,
       description,
     });
 
     revalidatePath("/", "layout");
-
-    return updatedNews;
   } catch (error: any) {
     console.log("Error updating News: ", error.message);
   }

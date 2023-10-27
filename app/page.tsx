@@ -5,7 +5,7 @@ export const revalidate = "force-cache";
 
 export default async function Home() {
   const news = await fetchNews();
-
+  let formatedNews = await JSON.stringify(news);
   return (
     <main className="mt-5 space-y-5">
       {news?.map((news) => (
