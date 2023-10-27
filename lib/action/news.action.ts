@@ -3,6 +3,7 @@
 import { connectToDB } from "../mongoose";
 import News from "../models/news.model";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 interface Params {
   title: string;
@@ -25,6 +26,7 @@ export async function createNews({ title, description }: Params) {
     });
 
     revalidatePath("/", "layout");
+    redirect("/")
   } catch (error: any) {
     console.log("Error creating news..", error.message);
   }
