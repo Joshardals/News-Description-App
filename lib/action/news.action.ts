@@ -36,8 +36,6 @@ export async function fetchNews() {
 
     const news = await News.find();
 
-    revalidatePath("/", "layout");
-
     return news;
   } catch (error: any) {
     console.log("Error fetching News: ", error.message);
