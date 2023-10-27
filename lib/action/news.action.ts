@@ -37,7 +37,7 @@ export async function fetchNews() {
     connectToDB();
 
     const news = await News.find();
-
+    console.log(news);
     return news;
   } catch (error: any) {
     console.log("Error fetching News: ", error.message);
