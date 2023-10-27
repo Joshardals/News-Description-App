@@ -9,9 +9,11 @@ interface Props {
   title: string;
   description: string;
   createdAt: string;
+  updatedAt: string;
 }
 
-const News = ({ id, title, description, createdAt }: Props) => {
+const News = ({ id, title, description, createdAt, updatedAt }: Props) => {
+  const isUpdated = createdAt !== updatedAt;
   return (
     <section
       className="flex flex-col w-full justify-between border dark:border dark:border-[#3f3f3f] border-black p-5 h-auto
@@ -38,7 +40,8 @@ const News = ({ id, title, description, createdAt }: Props) => {
 
       <div className="text-xs flex items-center justify-between">
         <span>
-          <b className="italic">Created:</b> {formatDateString(createdAt)}
+          <b className="italic">{isUpdated ? "Updated:" : "Created: "}</b>{" "}
+          {formatDateString(isUpdated ? updatedAt : createdAt)}
         </span>
         <div className="space-x-2 flex justify-end sm:justify-start sm:hidden">
           <Delete id={id} />

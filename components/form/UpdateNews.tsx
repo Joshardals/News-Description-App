@@ -11,9 +11,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { updateNews } from "@/lib/action/news.action";
+import { getNewsById, updateNews } from "@/lib/action/news.action";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 interface Props {
   id: string;
@@ -40,6 +40,17 @@ const UpdateNews = ({ id }: Props) => {
     setPending(false);
   };
 
+  useEffect(() => {
+    const fetchCurrentData = async () => {
+      const currentNews = await getNewsById(id);
+      if (currentNews) {
+        form.setValue("title", currentNews.title);
+        form.setValue("description", currentNews.description);
+      }
+    };
+
+    fetchCurrentData();
+  }, [id, form]);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 mt-8">

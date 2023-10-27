@@ -15,6 +15,7 @@ export default async function Home() {
           title={news.title}
           description={news.description}
           createdAt={news.createdAt}
+          updatedAt={news.updatedAt}
         />
       ))}
     </main>
