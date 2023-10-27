@@ -34,6 +34,7 @@ export async function fetchNews() {
   try {
     connectToDB();
 
+    revalidatePath("/");
     const news = await News.find();
 
     return news;
