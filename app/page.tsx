@@ -3,6 +3,13 @@ import News from "@/components/News";
 import { fetchNews } from "@/lib/action/news.action";
 import { useEffect, useState } from "react";
 
+interface NewsItem {
+  _id: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
 // export default async function Home() {
 //   const news = await fetchNews();
 //   return (
@@ -22,7 +29,7 @@ import { useEffect, useState } from "react";
 // }
 
 const Home = () => {
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState<NewsItem[]>([]);
 
   const getNews = async () => {
     const updatedNews: any = await fetchNews();
