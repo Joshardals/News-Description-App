@@ -1,4 +1,4 @@
-import { TrashIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import Delete from "./Delete";
@@ -11,15 +11,12 @@ interface Props {
   createdAt: string;
   updatedAt: string;
 }
-
-const News = ({ id, title, description, createdAt, updatedAt }: Props) => {
+const NewsList = ({ id, title, description, createdAt, updatedAt }: Props) => {
   const notUpdated = createdAt === updatedAt;
-  console.log(notUpdated);
-
   return (
     <section
       className="flex flex-col w-full justify-between border dark:border dark:border-[#3f3f3f] border-black p-5 h-auto
-        space-y-2 sm:space-y-4"
+    space-y-2 sm:space-y-4"
     >
       <div className="flex flex-col sm:flex-row space-x-3 justify-between">
         <div className="space-y-1 ">
@@ -59,4 +56,4 @@ const News = ({ id, title, description, createdAt, updatedAt }: Props) => {
   );
 };
 
-export default News;
+export default NewsList;
