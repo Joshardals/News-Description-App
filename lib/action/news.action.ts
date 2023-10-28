@@ -2,6 +2,7 @@
 
 import { connectToDB } from "../mongoose";
 import News from "../models/news.model";
+import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -26,7 +27,7 @@ export async function createNews({ title, description }: Params) {
     });
 
     revalidatePath("/", "layout");
-    redirect("/")
+    redirect("/");
   } catch (error: any) {
     console.log("Error creating news..", error.message);
   }
@@ -35,10 +36,11 @@ export async function createNews({ title, description }: Params) {
 export async function fetchNews() {
   try {
     connectToDB();
+    noStore();
 
-    revalidatePath("/");
     const news = await News.find();
 
+    revalidatePath("/");
     return news;
   } catch (error: any) {
     console.log("Error fetching News: ", error.message);
@@ -60,11 +62,12 @@ export async function updateNews({ id, title, description }: Props) {
   try {
     connectToDB();
 
-    const existingNews = await News.findByIdAndUpdate(id, {
+    await News.findByIdAndUpdate(id, {
       title,
       description,
     });
     revalidatePath("/", "layout");
+    redirect("/");
   } catch (error: any) {
     console.log("Error updating News: ", error.message);
   }

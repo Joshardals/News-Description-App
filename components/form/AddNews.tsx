@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createNews } from "@/lib/action/news.action";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const AddNews = () => {
   const [isPending, setPending] = useState(false);
@@ -34,8 +34,8 @@ const AddNews = () => {
       title: values.title,
       description: values.description,
     });
-    router.push("/");
     setPending(true);
+    router.push("/");
   };
 
   return (
