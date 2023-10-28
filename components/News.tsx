@@ -13,11 +13,13 @@ interface Props {
 }
 
 const News = ({ id, title, description, createdAt, updatedAt }: Props) => {
-  const isUpdated = createdAt !== updatedAt;
+  const notUpdated = createdAt === updatedAt;
+  console.log(notUpdated);
+
   return (
     <section
       className="flex flex-col w-full justify-between border dark:border dark:border-[#3f3f3f] border-black p-5 h-auto
-     space-y-2 sm:space-y-4"
+        space-y-2 sm:space-y-4"
     >
       <div className="flex flex-col sm:flex-row space-x-3 justify-between">
         <div className="space-y-1 ">
@@ -40,8 +42,8 @@ const News = ({ id, title, description, createdAt, updatedAt }: Props) => {
 
       <div className="text-xs flex items-center justify-between">
         <span>
-          <b className="italic">{isUpdated ? "Updated:" : "Created: "}</b>{" "}
-          {formatDateString(isUpdated ? updatedAt : createdAt)}
+          <b className="italic">{notUpdated ? "Updated:" : "Created: "}</b>{" "}
+          {formatDateString(notUpdated ? updatedAt : createdAt)}
         </span>
         <div className="space-x-2 flex justify-end sm:justify-start sm:hidden">
           <Delete id={id} />
