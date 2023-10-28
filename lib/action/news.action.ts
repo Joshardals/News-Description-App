@@ -35,8 +35,8 @@ export async function createNews({ title, description }: Params) {
 
 export async function fetchNews() {
   try {
-    connectToDB();
     noStore();
+    connectToDB();
 
     const news = await News.find();
 
